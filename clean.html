@@ -17,28 +17,6 @@
     --shadow:0 2px 4px rgba(30,24,21,.05),0 14px 30px -18px rgba(30,24,21,.22);
     --radius:14px;--maxw:1120px;
   }
-  :root:not([data-theme="light"]){ @media (prefers-color-scheme: dark){
-    --red:#F0584A;--red-deep:#F0584A;--red-tint:#2A1613;
-    --green:#4CC585;--green-tint:#12241A;
-    --bg:#151210;--tint:#1C1815;--surface:#1E1A17;
-    --ink:#F3EDE9;--sub:#B9AEA8;--muted:#8B807A;
-    --line:#2E2823;--line-strong:#3A322C;
-    --cta:#0E0C0A;
-    --ph:#E0B368;--ph-bg:#2A2213;--ph-line:#554525;
-    --shadow-sm:0 1px 2px rgba(0,0,0,.4);
-    --shadow:0 2px 4px rgba(0,0,0,.35),0 16px 34px -20px rgba(0,0,0,.7);
-  }}
-  :root[data-theme="dark"]{
-    --red:#F0584A;--red-deep:#F0584A;--red-tint:#2A1613;
-    --green:#4CC585;--green-tint:#12241A;
-    --bg:#151210;--tint:#1C1815;--surface:#1E1A17;
-    --ink:#F3EDE9;--sub:#B9AEA8;--muted:#8B807A;
-    --line:#2E2823;--line-strong:#3A322C;
-    --cta:#0E0C0A;
-    --ph:#E0B368;--ph-bg:#2A2213;--ph-line:#554525;
-    --shadow-sm:0 1px 2px rgba(0,0,0,.4);
-    --shadow:0 2px 4px rgba(0,0,0,.35),0 16px 34px -20px rgba(0,0,0,.7);
-  }
   *{box-sizing:border-box}
   html{scroll-behavior:smooth}
   body{margin:0;background:var(--bg);color:var(--ink);
@@ -261,11 +239,12 @@
           <a class="btn btn-ghost" href="#freight"><span class="en">I need to ship goods</span><span class="th">ผมมีสินค้าต้องส่ง</span></a>
         </div>
         <p class="trust"><span class="dot"></span><span class="en">Works with <b>every fleet</b> &mdash; petrol, diesel, or electric.</span><span class="th">ใช้ได้กับ<b>ทุกฟลีต</b> &mdash; น้ำมัน ดีเซล หรือไฟฟ้า</span></p>
+        <p class="trust"><span class="dot" style="background:var(--red)"></span><span class="en">In active pilot with <b>4 fleet partners</b> &mdash; 250 vehicles (MOU)</span><span class="th">นำร่องกับ<b>พาร์ทเนอร์ฟลีต 4 ราย</b> &mdash; 250 คัน (MOU)</span></p>
       </div>
       <!-- product mock -->
       <div>
         <div class="mock" role="img" aria-label="Fleet cost dashboard preview">
-          <div class="mock-bar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="t">fleet.velogistics</span><span class="tag"><span class="en">SAMPLE</span><span class="th">ตัวอย่าง</span></span></div>
+          <div class="mock-bar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="t">fleet.velogistics.app</span><span class="tag"><span class="en">SAMPLE</span><span class="th">ตัวอย่าง</span></span></div>
           <div class="mock-body">
             <div class="mock-h">
               <span class="lab"><span class="en">COST PER VEHICLE</span><span class="th">ต้นทุนต่อคัน</span></span>
@@ -288,7 +267,7 @@
             </div>
             <div class="mock-foot">
               <span class="ic">↓</span>
-              <span><span class="en">Truck 02 &rarr; EV could cut cost ~18% on this route</span><span class="th">Truck 02 &rarr; เปลี่ยน EV อาจลดต้นทุน ~18% บนเส้นทางนี้</span></span>
+              <span><span class="en">AI route optimization &rarr; ~18% lower cost this month</span><span class="th">AI จัดเส้นทาง &rarr; ลดต้นทุน ~18% เดือนนี้</span></span>
             </div>
           </div>
         </div>
@@ -301,13 +280,13 @@
   <section class="band-tint" style="padding:44px 0">
     <div class="wrap">
       <div style="display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:22px">
-        <p class="eyebrow" style="margin:0"><span class="en">By the numbers</span><span class="th">ภาพรวมด้วยตัวเลข</span></p>
-        <span class="ph"><span class="en">Mock-up figures &mdash; pending BD</span><span class="th">ตัวเลขจำลอง &mdash; รอ BD ยืนยัน</span></span>
+        <p class="eyebrow" style="margin:0"><span class="en">Pilot traction</span><span class="th">ผลนำร่อง</span></p>
+        <span class="ph"><span class="en">Early pilot &mdash; partner MOUs</span><span class="th">ข้อมูลนำร่อง &mdash; จาก MOU พาร์ทเนอร์</span></span>
       </div>
       <div class="stats">
-        <div class="stat"><div class="v">150<span style="color:var(--red)">+</span></div><div class="l"><span class="en">Vehicles in the network</span><span class="th">รถในเครือข่าย</span></div></div>
-        <div class="stat"><div class="v">~18<span style="color:var(--red)">%</span></div><div class="l"><span class="en">Avg. running-cost reduction</span><span class="th">ต้นทุนเดินรถที่ลดได้เฉลี่ย</span></div></div>
-        <div class="stat"><div class="v">2,400<span style="color:var(--red)">+</span></div><div class="l"><span class="en">Freight jobs matched / month</span><span class="th">งานขนส่งที่จับคู่ / เดือน</span></div></div>
+        <div class="stat"><div class="v">250<span style="color:var(--red)">+</span></div><div class="l"><span class="en">Vehicles across partner fleets</span><span class="th">รถในฟลีตพาร์ทเนอร์</span></div></div>
+        <div class="stat"><div class="v">18–20<span style="color:var(--red)">%</span></div><div class="l"><span class="en">Cost cut via AI route optimization</span><span class="th">ต้นทุนที่ลดได้จาก AI จัดเส้นทาง</span></div></div>
+        <div class="stat"><div class="v">4</div><div class="l"><span class="en">Fleet partners onboarded (MOU)</span><span class="th">พาร์ทเนอร์ฟลีตที่ร่วม (MOU)</span></div></div>
       </div>
     </div>
   </section>
@@ -482,7 +461,7 @@
     <div>
       <a class="logo" href="#top"><span class="mark">VE</span><span class="lt">VE Logistics</span></a>
       <p class="muted"><span class="en">A fleet platform and freight-matching network for Thailand &mdash; helping every fleet run leaner, win more work, and go electric on its own terms.</span><span class="th">แพลตฟอร์มฟลีตและเครือข่ายจับคู่งานขนส่งสำหรับประเทศไทย &mdash; ช่วยทุกฟลีตเดินรถให้คุ้ม รับงานได้มากขึ้น และเปลี่ยนสู่ไฟฟ้าในจังหวะของตัวเอง</span></p>
-      <p class="disc"><span class="en">Draft site for internal review. Copy describes intended capabilities and is not a confirmation of current operational status; metrics and claims await Business Development verification. A CIG Utilities &amp; Infrastructure initiative.</span><span class="th">เว็บร่างสำหรับพิจารณาภายใน เนื้อหาอธิบายความสามารถที่ตั้งใจไว้ ไม่ใช่การยืนยันสถานะการให้บริการปัจจุบัน ตัวเลข/ข้อความรอการยืนยันจากทีม Business Development — ริเริ่มโดย CIG Utilities &amp; Infrastructure</span></p>
+      <p class="disc"><span class="en">Draft site for internal review. VE Logistics is in active pilot with fleet partners; figures reflect partner MOUs and AI route-optimization results. Contact channels and partner names are being finalised. A CIG Utilities &amp; Infrastructure (CIGU) initiative, backed by CIG C.I. Group PCL.</span><span class="th">เว็บร่างสำหรับพิจารณาภายใน VE Logistics อยู่ระหว่างนำร่องกับพาร์ทเนอร์ฟลีต ตัวเลขอ้างอิงจาก MOU ของพาร์ทเนอร์และผลการจัดเส้นทางด้วย AI ช่องทางติดต่อและรายชื่อพาร์ทเนอร์กำลังสรุป — ริเริ่มโดย CIG Utilities &amp; Infrastructure (CIGU) สนับสนุนโดย CIG C.I. Group PCL</span></p>
     </div>
     <div class="mono" style="font-size:12.5px;color:var(--muted);letter-spacing:.04em">© 2026 VE Logistics</div>
   </div>

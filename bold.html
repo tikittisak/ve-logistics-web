@@ -1,0 +1,462 @@
+<title>VE Logistics</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=IBM+Plex+Sans+Thai:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+  :root{
+    --red:#E5241B;--red-deep:#B4160C;--red-tint:#FCEDEB;--red-tint2:#FBF4F2;
+    --green:#177A4C;--green-tint:#E8F3EC;
+    --bg:#FFFFFF;--tint:#FBF4F2;--surface:#FFFFFF;
+    --ink:#1A1411;--sub:#59504B;--muted:#897D77;
+    --line:#EEE3DF;--line-strong:#DDD0CA;
+    --ph:#9A6A16;--ph-bg:#FBF3E3;--ph-line:#E4CE9E;
+    --shadow-sm:0 1px 2px rgba(26,20,17,.06);
+    --shadow:0 3px 6px rgba(26,20,17,.06),0 20px 40px -22px rgba(229,36,27,.28);
+    --radius:16px;--maxw:1140px;
+  }
+  :root:not([data-theme="light"]){ @media (prefers-color-scheme: dark){
+    --red:#FF5347;--red-deep:#FF5347;--red-tint:#2C1512;--red-tint2:#1E1613;
+    --green:#4CC585;--green-tint:#12241A;
+    --bg:#161210;--tint:#1E1714;--surface:#201915;
+    --ink:#F5EEEA;--sub:#BCB0AA;--muted:#8C817B;
+    --line:#312822;--line-strong:#3E332C;
+    --ph:#E0B368;--ph-bg:#2A2213;--ph-line:#554525;
+    --shadow-sm:0 1px 2px rgba(0,0,0,.4);
+    --shadow:0 3px 6px rgba(0,0,0,.4),0 22px 44px -24px rgba(0,0,0,.75);
+  }}
+  :root[data-theme="dark"]{
+    --red:#FF5347;--red-deep:#FF5347;--red-tint:#2C1512;--red-tint2:#1E1613;
+    --green:#4CC585;--green-tint:#12241A;
+    --bg:#161210;--tint:#1E1714;--surface:#201915;
+    --ink:#F5EEEA;--sub:#BCB0AA;--muted:#8C817B;
+    --line:#312822;--line-strong:#3E332C;
+    --ph:#E0B368;--ph-bg:#2A2213;--ph-line:#554525;
+    --shadow-sm:0 1px 2px rgba(0,0,0,.4);
+    --shadow:0 3px 6px rgba(0,0,0,.4),0 22px 44px -24px rgba(0,0,0,.75);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:"IBM Plex Sans Thai","IBM Plex Sans",system-ui,sans-serif;
+    font-size:16.5px;line-height:1.62;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  :root[data-lang="th"] .en{display:none}
+  :root[data-lang="en"] .th{display:none}
+  h1,h2,h3{margin:0;font-family:"Chakra Petch","IBM Plex Sans Thai",sans-serif;font-weight:700;text-wrap:balance;line-height:1.12}
+  p{margin:0}a{color:inherit}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 26px}
+  .eyebrow{font-family:"IBM Plex Mono",monospace;font-size:12px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--red)}
+  .mono{font-family:"IBM Plex Mono",monospace}
+  .ph{display:inline-flex;align-items:center;gap:5px;background:var(--ph-bg);color:var(--ph);
+    border:1px solid var(--ph-line);border-radius:6px;padding:1px 7px;font-family:"IBM Plex Mono",monospace;font-size:11px;font-weight:500;vertical-align:middle}
+
+  /* NAV */
+  header.nav{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--bg) 88%,transparent);
+    backdrop-filter:saturate(150%) blur(12px);border-bottom:1px solid var(--line)}
+  .nav-in{display:flex;align-items:center;gap:20px;height:66px}
+  .logo{display:flex;align-items:center;gap:11px;text-decoration:none;flex-shrink:0}
+  .logo .mark{display:grid;place-items:center;width:34px;height:34px;border-radius:9px;background:var(--red);
+    color:#fff;font-family:"Chakra Petch",sans-serif;font-weight:700;font-size:15px}
+  .logo .lt{font-family:"Chakra Petch",sans-serif;font-weight:700;font-size:19px;letter-spacing:.02em;line-height:1;color:var(--ink)}
+  .nav-links{display:flex;gap:24px;margin-left:22px}
+  .nav-links a{text-decoration:none;color:var(--sub);font-size:14.5px;font-weight:500}
+  .nav-links a:hover{color:var(--red)}
+  .nav-right{display:flex;align-items:center;gap:8px;margin-left:auto}
+  .toggle{display:inline-flex;border:1px solid var(--line-strong);border-radius:999px;overflow:hidden;font-family:"IBM Plex Mono",monospace;font-size:12px}
+  .toggle button{background:transparent;border:0;color:var(--muted);padding:6px 11px;cursor:pointer;font:inherit}
+  .toggle button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+  .btn{display:inline-flex;align-items:center;gap:7px;cursor:pointer;text-decoration:none;font-weight:600;font-size:15px;
+    padding:12px 22px;border-radius:999px;border:1px solid transparent;transition:.16s ease;font-family:inherit}
+  .btn-primary{background:var(--red);color:#fff;box-shadow:0 10px 24px -12px var(--red)}
+  .btn-primary:hover{background:var(--red-deep);transform:translateY(-1px)}
+  .btn-ghost{background:transparent;border-color:var(--line-strong);color:var(--ink)}
+  .btn-ghost:hover{border-color:var(--red);color:var(--red)}
+  .nav .btn{padding:9px 18px;font-size:14px}
+  .ar{font-family:"IBM Plex Mono",monospace}
+
+  /* HERO */
+  .hero{position:relative;overflow:hidden;background:
+    radial-gradient(90% 120% at 100% 0%,var(--red-tint) 0%,transparent 55%),
+    linear-gradient(180deg,var(--tint),var(--bg) 70%)}
+  .hero::before{content:"";position:absolute;top:-120px;right:-120px;width:520px;height:520px;
+    background:conic-gradient(from 210deg,var(--red),transparent 40%);opacity:.06;border-radius:50%;pointer-events:none}
+  .hero-grid{position:relative;display:grid;grid-template-columns:1.05fr .95fr;gap:50px;align-items:center;padding:78px 0 56px}
+  .hero h1{font-size:clamp(36px,5.4vw,62px);color:var(--ink);max-width:15ch;margin:18px 0 0;letter-spacing:-.01em}
+  .hero h1 .u{color:var(--red)}
+  .hero .lede{margin-top:22px;max-width:52ch;font-size:18px;color:var(--sub)}
+  .hero-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+  .hero .trust{margin-top:20px;display:flex;align-items:center;gap:9px;font-size:13.5px;color:var(--muted)}
+  .hero .trust .dot{width:7px;height:7px;border-radius:50%;background:var(--green)}
+  .hero .trust b{color:var(--sub);font-weight:600}
+
+  .mock{background:var(--surface);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);overflow:hidden}
+  .mock-bar{display:flex;align-items:center;gap:8px;padding:13px 16px;background:var(--red);color:#fff}
+  .mock-bar .t{font-family:"IBM Plex Mono",monospace;font-size:12px;color:#ffe1de}
+  .mock-bar .tag{margin-left:auto;font-family:"IBM Plex Mono",monospace;font-size:10.5px;color:#fff;border:1px solid rgba(255,255,255,.5);border-radius:5px;padding:1px 6px}
+  .mock-body{padding:18px 18px 20px}
+  .mock-h{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px}
+  .mock-h .lab{font-size:13px;color:var(--muted);font-family:"IBM Plex Mono",monospace;letter-spacing:.04em}
+  .mock-h .big{font-size:15px;font-weight:700;color:var(--ink);font-family:"Chakra Petch",sans-serif}
+  .row{display:grid;grid-template-columns:1fr auto auto;gap:12px;align-items:center;padding:11px 0;border-top:1px solid var(--line)}
+  .row .veh{font-size:14px;font-weight:500;color:var(--ink)}
+  .row .veh small{display:block;font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--muted);font-weight:400}
+  .row .cpk{font-family:"IBM Plex Mono",monospace;font-size:14px;color:var(--sub);font-variant-numeric:tabular-nums}
+  .pill{font-family:"IBM Plex Mono",monospace;font-size:11px;padding:3px 9px;border-radius:999px;white-space:nowrap}
+  .pill.ev{background:var(--green-tint);color:var(--green)}
+  .pill.ok{background:var(--tint);color:var(--muted)}
+  .mock-foot{margin-top:14px;background:var(--green-tint);border-radius:10px;padding:12px 14px;display:flex;gap:10px;align-items:center}
+  .mock-foot .ic{color:var(--green);font-family:"IBM Plex Mono",monospace;font-weight:700}
+  .mock-foot span{font-size:13px;color:var(--ink)}
+  .mock-cap{margin-top:10px;text-align:center;font-family:"IBM Plex Mono",monospace;font-size:10.5px;color:var(--muted)}
+
+  /* RED STATS BAND — bold signature moment */
+  .statsband{background:var(--red);color:#fff}
+  .statsband .wrap{padding:40px 26px}
+  .sb-top{display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:20px}
+  .sb-top .eyebrow{color:#ffd9d5}
+  .sb-top .ph{background:rgba(255,255,255,.14);color:#fff;border-color:rgba(255,255,255,.4)}
+  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  .stat .v{font-family:"Chakra Petch",sans-serif;font-size:42px;font-weight:700;line-height:1;color:#fff;font-variant-numeric:tabular-nums}
+  .stat .l{margin-top:8px;font-size:14.5px;color:#ffe1de}
+
+  section{padding:88px 0}
+  .band-tint{background:var(--tint);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .sec-head{max-width:60ch;margin-bottom:44px}
+  .sec-head h2{font-size:clamp(26px,3.6vw,40px);margin-top:12px}
+  .sec-head p{margin-top:14px;color:var(--sub);font-size:17.5px}
+
+  .grid{display:grid;gap:18px}.g3{grid-template-columns:repeat(3,1fr)}
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:26px;box-shadow:var(--shadow-sm)}
+  .card h3{font-size:18px;margin-bottom:8px}.card p{color:var(--sub);font-size:15px}
+  .card .big{font-family:"Chakra Petch",sans-serif;font-size:15px;color:var(--red);letter-spacing:.03em}
+
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .step{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:28px;box-shadow:var(--shadow-sm);position:relative}
+  .step .n{font-family:"Chakra Petch",sans-serif;font-weight:700;font-size:16px;color:#fff;background:var(--red);
+    width:38px;height:38px;border-radius:11px;display:grid;place-items:center;margin-bottom:16px}
+  .step h3{font-size:19px;margin-bottom:8px}.step p{color:var(--sub);font-size:15px}
+  .then{margin-top:18px;display:flex;gap:18px;align-items:flex-start;background:var(--green-tint);
+    border-radius:14px;border-left:4px solid var(--green);padding:24px 26px}
+  .then .badge{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--green);white-space:nowrap;padding-top:3px}
+  .then h3{font-size:19px;margin-bottom:6px}.then p{color:var(--sub);font-size:15px;max-width:80ch}
+
+  .aud{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  .aud-card{border-radius:18px;padding:34px;box-shadow:var(--shadow-sm);position:relative;overflow:hidden}
+  .aud-card.fleet{background:linear-gradient(155deg,var(--red-deep),var(--red));color:#fff}
+  .aud-card.freight{background:var(--surface);border:1px solid var(--line)}
+  .aud-card .chip{display:inline-block;font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;padding:3px 10px;border-radius:6px;margin-bottom:8px}
+  .aud-card.fleet .chip{background:rgba(255,255,255,.16);color:#fff}
+  .aud-card.freight .chip{background:var(--green-tint);color:var(--green)}
+  .aud-card h3{font-size:23px;margin:8px 0 8px}
+  .aud-card.fleet h3{color:#fff}
+  .aud-card .sub{font-size:15.5px;margin-bottom:22px}
+  .aud-card.fleet .sub{color:#ffe4e0}.aud-card.freight .sub{color:var(--sub)}
+  .flist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:15px}
+  .flist li{display:grid;grid-template-columns:22px 1fr;gap:12px;align-items:start}
+  .flist .fi{font-family:"IBM Plex Mono",monospace;font-weight:700;margin-top:1px}
+  .aud-card.fleet .fi{color:#fff}.aud-card.freight .fi{color:var(--green)}
+  .flist b{display:block;font-family:"Chakra Petch",sans-serif;font-weight:600;font-size:15.5px;margin-bottom:1px}
+  .flist span{font-size:14.5px}
+  .aud-card.fleet .flist b{color:#fff}.aud-card.fleet .flist span{color:#ffe4e0}
+  .aud-card.freight .flist b{color:var(--ink)}.aud-card.freight .flist span{color:var(--sub)}
+  .aud-card .cta-in{margin-top:24px}
+  .aud-card.fleet .btn{background:#fff;color:var(--red)}
+  .aud-card.fleet .btn:hover{background:var(--ink);color:#fff}
+
+  .dgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:var(--surface)}
+  .dom{padding:26px 24px;border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .dom:nth-child(3n){border-right:0}.dom:nth-last-child(-n+3){border-bottom:0}
+  .dom .di{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--red);letter-spacing:.1em;font-weight:600}
+  .dom h3{font-size:16.5px;margin:9px 0 6px}.dom p{color:var(--sub);font-size:14px}
+
+  .ptease{background:linear-gradient(120deg,var(--red-tint),var(--surface));border:1px solid var(--line);border-radius:18px;padding:34px;
+    display:flex;gap:26px;align-items:center;justify-content:space-between;flex-wrap:wrap;box-shadow:var(--shadow-sm)}
+  .ptease h3{font-size:22px;margin:10px 0 8px}
+  .ptease p{color:var(--sub);font-size:15px;max-width:58ch}
+  .ptags{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+  .ptag{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--sub);border:1px solid var(--line-strong);border-radius:999px;padding:5px 12px;background:var(--surface)}
+
+  .demo{background:linear-gradient(150deg,var(--red-deep),var(--red));border-radius:24px;max-width:var(--maxw);margin:0 auto;padding:50px 40px;color:#fff;
+    display:grid;grid-template-columns:1fr .9fr;gap:44px;align-items:center;box-shadow:var(--shadow)}
+  .demo .eyebrow{color:#ffd9d5}
+  .demo h2{font-size:clamp(26px,3.4vw,38px);color:#fff;max-width:16ch;margin-top:12px}
+  .demo .lead{margin-top:14px;color:#ffe1de;font-size:16.5px;max-width:46ch}
+  .demo ul{list-style:none;padding:0;margin:20px 0 0;display:flex;flex-direction:column;gap:10px}
+  .demo ul li{display:flex;gap:10px;align-items:center;color:#fff;font-size:15px}
+  .demo ul .c{color:#fff;font-family:"IBM Plex Mono",monospace;font-weight:700}
+  .form{background:#fff;border-radius:16px;padding:26px}
+  .form .fh{font-family:"Chakra Petch",sans-serif;font-weight:600;font-size:18px;margin-bottom:3px;color:var(--ink)}
+  .form .fn{font-size:13px;color:var(--muted);margin-bottom:18px}
+  .field{margin-bottom:12px}
+  .field label{display:block;font-size:12.5px;color:var(--sub);margin-bottom:5px;font-weight:500}
+  .field input,.field select{width:100%;background:#fff;border:1px solid var(--line-strong);border-radius:9px;padding:10px 12px;font:inherit;font-size:14.5px;color:var(--ink)}
+  .field input:focus,.field select:focus{outline:2px solid var(--red);border-color:var(--red)}
+  .form .btn{width:100%;justify-content:center;background:var(--red);color:#fff;margin-top:6px}
+  .form .btn:hover{background:var(--red-deep)}
+  .form .note{margin-top:11px;font-family:"IBM Plex Mono",monospace;font-size:10.5px;color:var(--muted);text-align:center}
+  .thanks{display:none;text-align:center;padding:34px 10px}.thanks.on{display:block}
+  .thanks .big{font-family:"Chakra Petch",sans-serif;font-weight:700;font-size:20px;color:var(--ink);margin-bottom:8px}
+  .thanks p{color:var(--sub);font-size:14px}
+
+  footer{padding:50px 0 40px;border-top:1px solid var(--line)}
+  .foot-in{display:flex;flex-wrap:wrap;gap:24px;justify-content:space-between;align-items:flex-start}
+  footer .muted{color:var(--sub);font-size:14px;max-width:46ch;margin-top:14px}
+  footer .disc{margin-top:16px;font-size:12.5px;color:var(--muted);max-width:76ch;line-height:1.55}
+
+  @media (max-width:900px){
+    .nav-links{display:none}
+    .hero-grid,.aud,.demo{grid-template-columns:1fr;gap:32px}
+    .g3,.steps,.dgrid,.stats{grid-template-columns:1fr}
+    .dom{border-right:0}
+    section{padding:60px 0}.hero-grid{padding:56px 0 44px}
+  }
+  :focus-visible{outline:2px solid var(--red);outline-offset:2px;border-radius:4px}
+</style>
+
+<header class="nav">
+  <div class="wrap nav-in">
+    <a class="logo" href="#top"><span class="mark">VE</span><span class="lt">VE&nbsp;LOGISTICS</span></a>
+    <nav class="nav-links">
+      <a href="#how"><span class="en">How it works</span><span class="th">เริ่มยังไง</span></a>
+      <a href="#fleet"><span class="en">For fleets</span><span class="th">สำหรับฟลีต</span></a>
+      <a href="#freight"><span class="en">For shippers</span><span class="th">ลูกค้าขนส่ง</span></a>
+      <a href="#partner"><span class="en">Partners</span><span class="th">พาร์ทเนอร์</span></a>
+    </nav>
+    <div class="nav-right">
+      <div class="toggle" role="group" aria-label="Language">
+        <button id="th-btn" aria-pressed="true" onclick="setLang('th')">ไทย</button>
+        <button id="en-btn" aria-pressed="false" onclick="setLang('en')">EN</button>
+      </div>
+      <a class="btn btn-primary" href="#demo"><span class="en">Book a demo</span><span class="th">จองเดโม</span></a>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="eyebrow"><span class="en">Fleet platform + freight matching</span><span class="th">แพลตฟอร์มฟลีต + จับคู่งานขนส่ง</span></p>
+        <h1>
+          <span class="en">Run <span class="u">leaner</span>. Win <span class="u">more loads</span>. See every number.</span>
+          <span class="th">บริหารฟลีตให้<span class="u">คุ้มขึ้น</span> รับงาน<span class="u">มากขึ้น</span> เห็นต้นทุนทุกบาท</span>
+        </h1>
+        <p class="lede">
+          <span class="en">VE Logistics helps commercial fleets plan smarter routes, win new freight through our matching network, and see per-vehicle cost clearly &mdash; so you know exactly where going electric pays off.</span>
+          <span class="th">VE Logistics ช่วยฟลีตพาณิชย์วางแผนเดินรถให้คุ้มขึ้น รับงานใหม่ผ่านเครือข่ายจับคู่งาน และเห็นต้นทุนรายคันชัดเจน &mdash; รู้แน่ชัดว่าเปลี่ยนไป EV ตรงไหนถึงคุ้ม</span>
+        </p>
+        <div class="hero-cta">
+          <a class="btn btn-primary" href="#demo"><span class="en">Book a demo</span><span class="th">จองเดโม</span> <span class="ar">&rarr;</span></a>
+          <a class="btn btn-ghost" href="#freight"><span class="en">I need to ship goods</span><span class="th">ผมมีสินค้าต้องส่ง</span></a>
+        </div>
+        <p class="trust"><span class="dot"></span><span class="en">Works with <b>every fleet</b> &mdash; petrol, diesel, or electric.</span><span class="th">ใช้ได้กับ<b>ทุกฟลีต</b> &mdash; น้ำมัน ดีเซล หรือไฟฟ้า</span></p>
+      </div>
+      <div>
+        <div class="mock" role="img" aria-label="Fleet cost dashboard preview">
+          <div class="mock-bar"><span class="t">fleet.velogistics</span><span class="tag"><span class="en">SAMPLE</span><span class="th">ตัวอย่าง</span></span></div>
+          <div class="mock-body">
+            <div class="mock-h"><span class="lab"><span class="en">COST PER VEHICLE</span><span class="th">ต้นทุนต่อคัน</span></span><span class="big"><span class="en">This month</span><span class="th">เดือนนี้</span></span></div>
+            <div class="row"><span class="veh">Truck 01<small>Bangkok · 4,120 km</small></span><span class="cpk">฿12.40/km</span><span class="pill ok"><span class="en">On track</span><span class="th">ปกติ</span></span></div>
+            <div class="row"><span class="veh">Truck 02<small>EEC · 5,880 km</small></span><span class="cpk">฿14.10/km</span><span class="pill ev"><span class="en">EV-ready</span><span class="th">พร้อม EV</span></span></div>
+            <div class="row"><span class="veh">Van 07<small>Bangkok · 2,340 km</small></span><span class="cpk">฿9.80/km</span><span class="pill ok"><span class="en">On track</span><span class="th">ปกติ</span></span></div>
+            <div class="mock-foot"><span class="ic">↓</span><span><span class="en">Truck 02 &rarr; EV could cut cost ~18% on this route</span><span class="th">Truck 02 &rarr; เปลี่ยน EV อาจลดต้นทุน ~18% บนเส้นทางนี้</span></span></div>
+          </div>
+        </div>
+        <p class="mock-cap"><span class="en">Illustrative preview &mdash; figures are examples</span><span class="th">ภาพจำลอง &mdash; ตัวเลขเป็นเพียงตัวอย่าง</span></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- RED STATS BAND -->
+  <section class="statsband" style="padding:0">
+    <div class="wrap">
+      <div class="sb-top">
+        <p class="eyebrow"><span class="en">By the numbers</span><span class="th">ภาพรวมด้วยตัวเลข</span></p>
+        <span class="ph"><span class="en">Mock-up figures &mdash; pending BD</span><span class="th">ตัวเลขจำลอง &mdash; รอ BD ยืนยัน</span></span>
+      </div>
+      <div class="stats">
+        <div class="stat"><div class="v">150+</div><div class="l"><span class="en">Vehicles in the network</span><span class="th">รถในเครือข่าย</span></div></div>
+        <div class="stat"><div class="v">~18%</div><div class="l"><span class="en">Avg. running-cost reduction</span><span class="th">ต้นทุนเดินรถที่ลดได้เฉลี่ย</span></div></div>
+        <div class="stat"><div class="v">2,400+</div><div class="l"><span class="en">Freight jobs matched / month</span><span class="th">งานขนส่งที่จับคู่ / เดือน</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="how">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow"><span class="en">How it works</span><span class="th">เริ่มยังไง</span></p>
+        <h2><span class="en">Value on day one &mdash; electric when you&rsquo;re ready</span><span class="th">ได้ประโยชน์ตั้งแต่วันแรก &mdash; เปลี่ยน EV เมื่อพร้อม</span></h2>
+        <p><span class="en">You don&rsquo;t need an electric fleet to start. Join with the vehicles you run today, get more efficient and win more work &mdash; then let the data decide your EV transition.</span><span class="th">ไม่ต้องมีรถ EV ก็เริ่มได้ เข้ามาด้วยรถที่คุณมีวันนี้ ทำงานให้คุ้มขึ้นและรับงานได้มากขึ้น แล้วให้ข้อมูลเป็นตัวตัดสินจังหวะเปลี่ยนเป็น EV</span></p>
+      </div>
+      <div class="steps">
+        <div class="step"><div class="n">1</div><h3><span class="en">Run leaner</span><span class="th">เดินรถให้คุ้มขึ้น</span></h3><p><span class="en">AI route planning, fleet health, and utilisation tracking cut cost per trip &mdash; on the vehicles you already own.</span><span class="th">วางแผนเส้นทางด้วย AI ติดตามสภาพรถและอัตราการใช้งาน ลดต้นทุนต่อเที่ยว &mdash; บนรถที่คุณมีอยู่แล้ว</span></p></div>
+        <div class="step"><div class="n">2</div><h3><span class="en">Win more loads</span><span class="th">รับงานได้มากขึ้น</span></h3><p><span class="en">Our matching network connects your available capacity with freight customers looking for reliable delivery.</span><span class="th">เครือข่ายจับคู่งานของเราเชื่อมกำลังขนส่งที่ว่างของคุณเข้ากับลูกค้าที่ต้องการการส่งที่ไว้ใจได้</span></p></div>
+        <div class="step"><div class="n">3</div><h3><span class="en">See the real numbers</span><span class="th">เห็นต้นทุนจริง</span></h3><p><span class="en">Per-vehicle P&amp;L and cost-per-km show exactly what each vehicle earns and spends &mdash; no more guessing.</span><span class="th">กำไรขาดทุนรายคันและต้นทุนต่อกิโลเมตร บอกชัดว่าแต่ละคันหาได้-จ่ายไปเท่าไร &mdash; ไม่ต้องเดา</span></p></div>
+      </div>
+      <div class="then">
+        <span class="badge"><span class="en">Then &mdash; EV</span><span class="th">แล้วจึง &mdash; EV</span></span>
+        <div>
+          <h3><span class="en">Switch to electric where it actually pays</span><span class="th">เปลี่ยนเป็นไฟฟ้าเฉพาะจุดที่คุ้มจริง</span></h3>
+          <p><span class="en">With real cost data in hand, VE Logistics shows which routes and vehicles are ready for EV &mdash; and connects you to financing, charging, and insurance partners to make the switch on your terms.</span><span class="th">เมื่อมีข้อมูลต้นทุนจริงในมือ VE Logistics จะชี้ว่าเส้นทางและรถคันไหนพร้อมเปลี่ยนเป็น EV &mdash; พร้อมเชื่อมคุณกับพาร์ทเนอร์สินเชื่อ สถานีชาร์จ และประกัน</span></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band-tint">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow"><span class="en">Who it&rsquo;s for</span><span class="th">เว็บนี้เพื่อใคร</span></p>
+        <h2><span class="en">Two sides, one network</span><span class="th">สองฝั่ง หนึ่งเครือข่าย</span></h2>
+        <p><span class="en">Fleet operators and freight customers on the same platform &mdash; each one makes the other more valuable.</span><span class="th">เจ้าของฟลีตและลูกค้าขนส่งอยู่บนแพลตฟอร์มเดียวกัน &mdash; แต่ละฝั่งทำให้อีกฝั่งมีค่ามากขึ้น</span></p>
+      </div>
+      <div class="aud">
+        <div class="aud-card fleet" id="fleet">
+          <span class="chip"><span class="en">Fleet operators</span><span class="th">เจ้าของฟลีต</span></span>
+          <h3><span class="en">More work. Lower cost. Clear numbers.</span><span class="th">งานมากขึ้น ต้นทุนต่ำลง ตัวเลขชัด</span></h3>
+          <p class="sub"><span class="en">The tools to run a profitable fleet today &mdash; and a data-backed path to electric tomorrow.</span><span class="th">เครื่องมือบริหารฟลีตให้ทำกำไรได้วันนี้ &mdash; พร้อมเส้นทางสู่ EV ที่ตัดสินด้วยข้อมูล</span></p>
+          <ul class="flist">
+            <li><span class="fi">&rarr;</span><div><b><span class="en">New freight, matched to you</span><span class="th">งานใหม่ จับคู่ให้คุณ</span></b><span class="en">Fill empty capacity with jobs from our freight network.</span><span class="th">เติมกำลังขนส่งที่ว่างด้วยงานจากเครือข่ายลูกค้าของเรา</span></div></li>
+            <li><span class="fi">&rarr;</span><div><b><span class="en">Lower running cost</span><span class="th">ลดต้นทุนเดินรถ</span></b><span class="en">AI routing and predictive maintenance cut fuel/energy and downtime.</span><span class="th">วางเส้นทางด้วย AI และบำรุงรักษาเชิงคาดการณ์ ลดค่าเชื้อเพลิงและเวลาจอด</span></div></li>
+            <li><span class="fi">&rarr;</span><div><b><span class="en">Per-vehicle P&amp;L</span><span class="th">กำไรขาดทุนรายคัน</span></b><span class="en">Know cost-per-km and profit for every vehicle and route.</span><span class="th">รู้ต้นทุนต่อกม.และกำไรของทุกคันทุกเส้นทาง</span></div></li>
+            <li><span class="fi">&rarr;</span><div><b><span class="en">EV when it pays</span><span class="th">เปลี่ยน EV เมื่อคุ้ม</span></b><span class="en">Data-driven EV guidance, with financing and charging built in.</span><span class="th">คำแนะนำเปลี่ยน EV จากข้อมูลจริง พร้อมสินเชื่อและการชาร์จในตัว</span></div></li>
+          </ul>
+          <div class="cta-in"><a class="btn" href="#demo"><span class="en">Book a demo</span><span class="th">จองเดโม</span> <span class="ar">&rarr;</span></a></div>
+        </div>
+        <div class="aud-card freight" id="freight">
+          <span class="chip"><span class="en">Freight &amp; retail customers</span><span class="th">ลูกค้าขนส่ง / ค้าปลีก</span></span>
+          <h3><span class="en">Reliable delivery, on demand</span><span class="th">ส่งของไว้ใจได้ เมื่อคุณต้องการ</span></h3>
+          <p class="sub"><span class="en">Book vetted fleets with transparent pricing and real tracking &mdash; with low-carbon options when you need them.</span><span class="th">จองฟลีตที่ผ่านการคัดกรอง ราคาโปร่งใส ติดตามได้จริง &mdash; พร้อมทางเลือกคาร์บอนต่ำเมื่อต้องการ</span></p>
+          <ul class="flist">
+            <li><span class="fi">&rarr;</span><div><b><span class="en">Transparent booking</span><span class="th">จองงานโปร่งใส</span></b><span class="en">Upfront pricing, live tracking, estimated delivery windows.</span><span class="th">ราคาชัดเจน ติดตามสด และช่วงเวลาส่งโดยประมาณ</span></div></li>
+            <li><span class="fi">&rarr;</span><div><b><span class="en">A vetted fleet network</span><span class="th">เครือข่ายฟลีตที่คัดแล้ว</span></b><span class="en">Reach reliable, technology-enabled operators in one place.</span><span class="th">เข้าถึงผู้ให้บริการที่ไว้ใจได้และใช้เทคโนโลยี ในที่เดียว</span></div></li>
+            <li><span class="fi">&rarr;</span><div><b><span class="en">ESG-ready reporting</span><span class="th">รายงานพร้อม ESG</span></b><span class="en">Per-shipment emissions data for your sustainability reporting.</span><span class="th">ข้อมูลการปล่อยคาร์บอนรายเที่ยว สำหรับรายงานความยั่งยืน</span></div></li>
+            <li><span class="fi">&rarr;</span><div><b><span class="en">One dashboard</span><span class="th">แดชบอร์ดเดียว</span></b><span class="en">Request, track, and review every delivery in one view.</span><span class="th">ขอบริการ ติดตาม และตรวจงานส่งทุกงานในหน้าจอเดียว</span></div></li>
+          </ul>
+          <div class="cta-in"><a class="btn btn-ghost" href="#demo"><span class="en">Request freight service</span><span class="th">ขอใช้บริการขนส่ง</span></a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow"><span class="en">Not EV-only</span><span class="th">ไม่ใช่แค่ EV</span></p>
+        <h2><span class="en">Built for the fleet you run today</span><span class="th">สร้างมาเพื่อฟลีตที่คุณมีวันนี้</span></h2>
+        <p><span class="en">The switch to electric shouldn&rsquo;t be a leap of faith. VE Logistics makes it a measured decision &mdash; three steps, at your pace.</span><span class="th">การเปลี่ยนไป EV ไม่ควรเป็นการเสี่ยงเดา VE Logistics ทำให้เป็นการตัดสินใจที่วัดผลได้ &mdash; สามขั้น ตามจังหวะของคุณ</span></p>
+      </div>
+      <div class="grid g3">
+        <div class="card"><p class="big">01</p><h3><span class="en">Start as you are</span><span class="th">เริ่มจากที่คุณเป็น</span></h3><p><span class="en">Onboard petrol or diesel vehicles &mdash; no fleet change required.</span><span class="th">เริ่มด้วยรถน้ำมันหรือดีเซล &mdash; ไม่ต้องเปลี่ยนฟลีต</span></p></div>
+        <div class="card"><p class="big">02</p><h3><span class="en">Measure everything</span><span class="th">วัดผลทุกอย่าง</span></h3><p><span class="en">Real cost, utilisation, and route data on every vehicle.</span><span class="th">ต้นทุนจริง อัตราการใช้งาน และข้อมูลเส้นทางของทุกคัน</span></p></div>
+        <div class="card"><p class="big" style="color:var(--green)">03</p><h3><span class="en">Electrify what pays</span><span class="th">เปลี่ยนเฉพาะที่คุ้ม</span></h3><p><span class="en">Swap to EV route by route, backed by financing and charging.</span><span class="th">เปลี่ยนเป็น EV ทีละเส้นทาง หนุนด้วยสินเชื่อและการชาร์จ</span></p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band-tint">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow"><span class="en">The engine</span><span class="th">เอนจินเบื้องหลัง</span></p>
+        <h2><span class="en">Six AI domains behind every number</span><span class="th">หกโดเมน AI เบื้องหลังทุกตัวเลข</span></h2>
+        <p><span class="en">The intelligence layer turns raw fleet activity into lower cost, matched loads, and clear decisions.</span><span class="th">ชั้นปัญญาประดิษฐ์เปลี่ยนกิจกรรมของฟลีตให้เป็นต้นทุนที่ต่ำลง งานที่จับคู่ได้ และการตัดสินใจที่ชัดเจน</span></p>
+      </div>
+      <div class="dgrid">
+        <div class="dom"><span class="di">01</span><h3><span class="en">Route optimisation</span><span class="th">ปรับเส้นทาง</span></h3><p><span class="en">Efficient routing with real-time vehicle and charge awareness.</span><span class="th">วางเส้นทางให้คุ้ม รู้สถานะรถและแบตเตอรี่แบบเรียลไทม์</span></p></div>
+        <div class="dom"><span class="di">02</span><h3><span class="en">Demand forecasting</span><span class="th">พยากรณ์ความต้องการ</span></h3><p><span class="en">Anticipate freight volumes and match supply to demand.</span><span class="th">คาดการณ์ปริมาณงานและจับคู่กำลังขนส่งกับดีมานด์</span></p></div>
+        <div class="dom"><span class="di">03</span><h3><span class="en">Fleet management</span><span class="th">จัดการฟลีต</span></h3><p><span class="en">Real-time diagnostics, maintenance alerts, utilisation.</span><span class="th">วิเคราะห์สภาพรถ แจ้งเตือนซ่อมบำรุง และการใช้งาน</span></p></div>
+        <div class="dom"><span class="di">04</span><h3><span class="en">Charging intelligence</span><span class="th">การชาร์จอัจฉริยะ</span></h3><p><span class="en">For EV routes: predictive scheduling that cuts downtime.</span><span class="th">สำหรับเส้นทาง EV: จัดตารางชาร์จเชิงคาดการณ์ ลดเวลาว่าง</span></p></div>
+        <div class="dom"><span class="di">05</span><h3><span class="en">Risk assessment</span><span class="th">ประเมินความเสี่ยง</span></h3><p><span class="en">Scoring of driver behaviour, vehicle health, route risk.</span><span class="th">ให้คะแนนพฤติกรรมคนขับ สภาพรถ และความเสี่ยงเส้นทาง</span></p></div>
+        <div class="dom"><span class="di">06</span><h3><span class="en">Financial optimisation</span><span class="th">ปรับด้านการเงิน</span></h3><p><span class="en">Per-vehicle P&amp;L, cost-per-km, data-driven pricing.</span><span class="th">กำไรขาดทุนรายคัน ต้นทุนต่อกม. และตั้งราคาด้วยข้อมูล</span></p></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow"><span class="en">Why now</span><span class="th">ทำไมต้องตอนนี้</span></p>
+        <h2><span class="en">Thailand&rsquo;s logistics is shifting &mdash; profitably</span><span class="th">โลจิสติกส์ไทยกำลังเปลี่ยน &mdash; อย่างทำกำไรได้</span></h2>
+      </div>
+      <div class="grid g3">
+        <div class="card"><p class="big">EEC</p><h3><span class="en">Concentrated demand</span><span class="th">ดีมานด์กระจุกตัว</span></h3><p><span class="en">The Eastern Economic Corridor drives dense, recurring freight demand.</span><span class="th">ระเบียงเศรษฐกิจภาคตะวันออกสร้างความต้องการขนส่งที่หนาแน่นและต่อเนื่อง</span></p></div>
+        <div class="card"><p class="big">EV 3.0 / 3.5</p><h3><span class="en">Policy tailwind</span><span class="th">นโยบายหนุนหลัง</span></h3><p><span class="en">Incentives make electric increasingly attractive &mdash; when you&rsquo;re ready.</span><span class="th">มาตรการรัฐทำให้ไฟฟ้าน่าสนใจขึ้นเรื่อยๆ &mdash; เมื่อคุณพร้อม</span></p></div>
+        <div class="card"><p class="big"><span class="en">Underserved</span><span class="th">ยังไม่มีใครทำ</span></p><h3><span class="en">An open field</span><span class="th">สนามที่ยังว่าง</span></h3><p><span class="en">No unified platform yet connects fleets, freight, and the EV transition.</span><span class="th">ยังไม่มีแพลตฟอร์มกลางที่เชื่อมฟลีต งานขนส่ง และการเปลี่ยนสู่ EV</span></p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band-tint" id="partner">
+    <div class="wrap">
+      <div class="ptease">
+        <div>
+          <p class="eyebrow"><span class="en">Ecosystem partners</span><span class="th">พาร์ทเนอร์อีโคซิสเต็ม</span></p>
+          <h3><span class="en">Power the transition with us</span><span class="th">ร่วมขับเคลื่อนการเปลี่ยนผ่านกับเรา</span></h3>
+          <p><span class="en">Charging networks, financial institutions, and insurers: reach a growing base of commercial fleets with real operational data. A dedicated partner page is on the way.</span><span class="th">สถานีชาร์จ สถาบันการเงิน และประกันภัย: เข้าถึงฐานฟลีตเชิงพาณิชย์ที่เติบโต พร้อมข้อมูลการเดินงานจริง หน้าพาร์ทเนอร์โดยเฉพาะกำลังจะตามมา</span></p>
+          <div class="ptags">
+            <span class="ptag"><span class="en">Charging networks</span><span class="th">สถานีชาร์จ</span></span>
+            <span class="ptag"><span class="en">Financial institutions</span><span class="th">สถาบันการเงิน</span></span>
+            <span class="ptag"><span class="en">Insurers</span><span class="th">ประกันภัย</span></span>
+            <span class="ptag"><span class="en">EV suppliers</span><span class="th">ผู้จำหน่ายรถ EV</span></span>
+          </div>
+        </div>
+        <a class="btn btn-primary" href="#demo"><span class="en">Become a partner</span><span class="th">ร่วมเป็นพาร์ทเนอร์</span> <span class="ar">&rarr;</span></a>
+      </div>
+    </div>
+  </section>
+
+  <section id="demo" style="padding-bottom:40px">
+    <div class="demo">
+      <div>
+        <p class="eyebrow"><span class="en">See it on your own fleet</span><span class="th">ดูกับฟลีตของคุณเอง</span></p>
+        <h2><span class="en">Book a 30-minute demo</span><span class="th">จองเดโม 30 นาที</span></h2>
+        <p class="lead"><span class="en">We&rsquo;ll walk through the platform with your fleet in mind and show the numbers that matter to you.</span><span class="th">เราจะพาดูแพลตฟอร์มโดยยึดฟลีตของคุณเป็นตัวตั้ง และโชว์ตัวเลขที่สำคัญกับคุณจริงๆ</span></p>
+        <ul>
+          <li><span class="c">&check;</span> <span class="en">No commitment &mdash; just a working session</span><span class="th">ไม่มีข้อผูกมัด &mdash; เป็นการดูงานจริง</span></li>
+          <li><span class="c">&check;</span> <span class="en">Works for petrol, diesel, and EV fleets</span><span class="th">รองรับฟลีตน้ำมัน ดีเซล และ EV</span></li>
+          <li><span class="c">&check;</span> <span class="en">See efficiency, matching, and cost views</span><span class="th">เห็นทั้งประสิทธิภาพ การจับคู่งาน และมุมมองต้นทุน</span></li>
+        </ul>
+      </div>
+      <div>
+        <form class="form" id="leadform" onsubmit="return submitLead(event)">
+          <div class="fh"><span class="en">Request your demo</span><span class="th">ขอรับเดโม</span></div>
+          <div class="fn"><span class="en">Our team will reach out to schedule.</span><span class="th">ทีมงานจะติดต่อกลับเพื่อนัดหมาย</span></div>
+          <div class="field"><label><span class="en">Name</span><span class="th">ชื่อ</span></label><input required name="name" autocomplete="name"></div>
+          <div class="field"><label><span class="en">Company</span><span class="th">บริษัท</span></label><input required name="company" autocomplete="organization"></div>
+          <div class="field"><label><span class="en">Fleet size</span><span class="th">ขนาดฟลีต (จำนวนรถ)</span></label>
+            <select name="fleet"><option value="">—</option><option>1–10</option><option>11–50</option><option>51–200</option><option>200+</option><option>shipper / ลูกค้าขนส่ง</option></select>
+          </div>
+          <div class="field"><label><span class="en">Email or phone</span><span class="th">อีเมลหรือเบอร์โทร</span></label><input required name="contact"></div>
+          <button class="btn" type="submit"><span class="en">Request demo</span><span class="th">ขอรับเดโม</span></button>
+          <p class="note"><span class="en">Draft form &mdash; needs a real submission endpoint from BD.</span><span class="th">ฟอร์มตัวอย่าง &mdash; ต้องต่อปลายทางรับข้อมูลจริงจาก BD</span></p>
+        </form>
+        <div class="thanks" id="thanks"><div class="big"><span class="en">Thank you!</span><span class="th">ขอบคุณครับ!</span></div><p><span class="en">This is a draft &mdash; no data was sent yet.</span><span class="th">นี่เป็นตัวอย่าง &mdash; ยังไม่มีการส่งข้อมูลจริง</span></p></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot-in">
+    <div>
+      <a class="logo" href="#top"><span class="mark">VE</span><span class="lt">VE&nbsp;LOGISTICS</span></a>
+      <p class="muted"><span class="en">A fleet platform and freight-matching network for Thailand &mdash; helping every fleet run leaner, win more work, and go electric on its own terms.</span><span class="th">แพลตฟอร์มฟลีตและเครือข่ายจับคู่งานขนส่งสำหรับประเทศไทย &mdash; ช่วยทุกฟลีตเดินรถให้คุ้ม รับงานได้มากขึ้น และเปลี่ยนสู่ไฟฟ้าในจังหวะของตัวเอง</span></p>
+      <p class="disc"><span class="en">Draft site for internal review. Copy describes intended capabilities and is not a confirmation of current operational status; metrics and claims await Business Development verification. A CIG Utilities &amp; Infrastructure initiative.</span><span class="th">เว็บร่างสำหรับพิจารณาภายใน เนื้อหาอธิบายความสามารถที่ตั้งใจไว้ ไม่ใช่การยืนยันสถานะการให้บริการปัจจุบัน ตัวเลข/ข้อความรอการยืนยันจากทีม Business Development — ริเริ่มโดย CIG Utilities &amp; Infrastructure</span></p>
+    </div>
+    <div class="mono" style="font-size:12.5px;color:var(--muted);letter-spacing:.04em">© 2026 VE Logistics</div>
+  </div>
+</footer>
+
+<script>
+  function setLang(l){
+    document.documentElement.setAttribute('data-lang',l);
+    document.documentElement.setAttribute('lang',l==='th'?'th':'en');
+    document.getElementById('th-btn').setAttribute('aria-pressed',l==='th');
+    document.getElementById('en-btn').setAttribute('aria-pressed',l==='en');
+    try{localStorage.setItem('ve-lang',l)}catch(e){}
+  }
+  (function(){var s='th';try{var v=localStorage.getItem('ve-lang');if(v)s=v}catch(e){}setLang(s);})();
+  function submitLead(e){e.preventDefault();document.getElementById('leadform').style.display='none';document.getElementById('thanks').classList.add('on');return false;}
+</script>

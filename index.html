@@ -1,0 +1,159 @@
+<title>VE Logistics — Design Options</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600;700&family=IBM+Plex+Sans+Thai:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  :root{
+    --red:#D42A1D;--red-deep:#AE1F14;
+    --bg:#F6F3F1;--surface:#FFFFFF;--ink:#1E1815;--sub:#5C534E;--muted:#8A7F79;
+    --line:#E7E0DC;--line-strong:#D8CFC9;--shadow:0 3px 8px rgba(30,24,21,.06),0 24px 48px -26px rgba(30,24,21,.3);
+  }
+  :root:not([data-theme="light"]){ @media (prefers-color-scheme: dark){
+    --red:#F0584A;--red-deep:#F0584A;--bg:#151210;--surface:#1E1A17;--ink:#F3EDE9;--sub:#B9AEA8;--muted:#8B807A;
+    --line:#2E2823;--line-strong:#3A322C;--shadow:0 3px 8px rgba(0,0,0,.4),0 26px 50px -28px rgba(0,0,0,.75);
+  }}
+  :root[data-theme="dark"]{
+    --red:#F0584A;--red-deep:#F0584A;--bg:#151210;--surface:#1E1A17;--ink:#F3EDE9;--sub:#B9AEA8;--muted:#8B807A;
+    --line:#2E2823;--line-strong:#3A322C;--shadow:0 3px 8px rgba(0,0,0,.4),0 26px 50px -28px rgba(0,0,0,.75);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;min-height:100vh;background:var(--bg);color:var(--ink);
+    font-family:"IBM Plex Sans Thai","IBM Plex Sans",system-ui,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased;
+    display:flex;flex-direction:column}
+  :root[data-lang="th"] .en{display:none}
+  :root[data-lang="en"] .th{display:none}
+  a{color:inherit}
+  .wrap{width:100%;max-width:980px;margin:0 auto;padding:0 26px}
+  header{padding:22px 0;border-bottom:1px solid var(--line)}
+  .head-in{display:flex;align-items:center;gap:14px}
+  .logo{display:flex;align-items:center;gap:10px}
+  .logo .mark{display:grid;place-items:center;width:34px;height:34px;border-radius:9px;background:var(--red);color:#fff;font-family:"Chakra Petch",sans-serif;font-weight:700;font-size:15px}
+  .logo .lt{font-family:"Chakra Petch",sans-serif;font-weight:700;font-size:19px}
+  .toggle{margin-left:auto;display:inline-flex;border:1px solid var(--line-strong);border-radius:999px;overflow:hidden;font-family:"IBM Plex Mono",monospace;font-size:12px}
+  .toggle button{background:transparent;border:0;color:var(--muted);padding:6px 12px;cursor:pointer;font:inherit}
+  .toggle button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+  main{flex:1;padding:64px 0 40px}
+  .intro{max-width:60ch;margin-bottom:44px}
+  .eyebrow{font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--red);font-weight:500}
+  .intro h1{font-family:"Chakra Petch",sans-serif;font-size:clamp(28px,4vw,42px);margin:12px 0 0;line-height:1.15}
+  .intro p{margin-top:14px;color:var(--sub);font-size:17px}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+  .opt{background:var(--surface);border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:var(--shadow);
+    display:flex;flex-direction:column;transition:transform .16s ease,box-shadow .16s ease}
+  .opt:hover{transform:translateY(-3px)}
+  .thumb{height:158px;position:relative;border-bottom:1px solid var(--line);overflow:hidden}
+  .thumb .lab{position:absolute;left:16px;top:14px;font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;padding:4px 10px;border-radius:6px;background:rgba(255,255,255,.9);color:#1E1815}
+  /* clean thumb */
+  .t-clean{background:#F6F3F1}
+  .t-clean .hbar{position:absolute;top:0;left:0;right:0;height:34px;background:#fff;border-bottom:1px solid #E7E0DC}
+  .t-clean .h1{position:absolute;top:60px;left:22px;width:150px;height:13px;border-radius:4px;background:#1E1815}
+  .t-clean .h2{position:absolute;top:80px;left:22px;width:110px;height:13px;border-radius:4px;background:#D42A1D}
+  .t-clean .p1{position:absolute;top:104px;left:22px;width:170px;height:7px;border-radius:3px;background:#C9BEB8}
+  .t-clean .p2{position:absolute;top:116px;left:22px;width:130px;height:7px;border-radius:3px;background:#C9BEB8}
+  .t-clean .cardm{position:absolute;top:56px;right:20px;width:118px;height:80px;border-radius:9px;background:#fff;border:1px solid #E7E0DC;box-shadow:0 8px 18px -12px rgba(0,0,0,.3)}
+  .t-clean .cardm i{position:absolute;left:10px;right:10px;height:6px;border-radius:3px;background:#EEE6E2}
+  /* bold thumb */
+  .t-bold{background:linear-gradient(180deg,#FBF4F2,#fff)}
+  .t-bold .hbar{position:absolute;top:0;left:0;right:0;height:34px;background:rgba(255,255,255,.7);border-bottom:1px solid #EEE3DF}
+  .t-bold .h1{position:absolute;top:56px;left:22px;width:120px;height:16px;border-radius:4px;background:#1A1411}
+  .t-bold .h2{position:absolute;top:78px;left:22px;width:150px;height:16px;border-radius:4px;background:#E5241B}
+  .t-bold .band{position:absolute;left:0;right:0;bottom:0;height:46px;background:#E5241B;display:flex;align-items:center;gap:14px;padding:0 20px}
+  .t-bold .band b{font-family:"Chakra Petch",sans-serif;color:#fff;font-size:16px}
+  .t-bold .cardm{position:absolute;top:52px;right:20px;width:110px;height:56px;border-radius:9px;background:#fff;border:1px solid #EEE3DF;box-shadow:0 8px 18px -12px rgba(229,36,27,.4)}
+  .t-bold .cardm em{position:absolute;top:0;left:0;right:0;height:16px;background:#E5241B;border-radius:9px 9px 0 0}
+  .opt-body{padding:24px;flex:1;display:flex;flex-direction:column}
+  .opt-body h2{font-family:"Chakra Petch",sans-serif;font-size:21px;margin:0 0 8px}
+  .opt-body .tagline{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--red);letter-spacing:.05em;margin-bottom:10px}
+  .opt-body p{color:var(--sub);font-size:14.5px;margin:0 0 16px}
+  .opt-body ul{list-style:none;margin:0 0 20px;padding:0;display:flex;flex-direction:column;gap:7px}
+  .opt-body li{font-size:13.5px;color:var(--sub);display:flex;gap:8px}
+  .opt-body li::before{content:"—";color:var(--muted)}
+  .opt-body .btn{margin-top:auto;display:inline-flex;align-items:center;justify-content:center;gap:8px;
+    background:var(--red);color:#fff;text-decoration:none;font-weight:600;font-size:15px;padding:12px 20px;border-radius:10px}
+  .opt-body .btn:hover{background:var(--red-deep)}
+  .note{margin-top:34px;font-size:13px;color:var(--muted);max-width:70ch}
+  .note code{font-family:"IBM Plex Mono",monospace;font-size:12px;background:var(--surface);border:1px solid var(--line);border-radius:5px;padding:1px 6px}
+  footer{padding:24px 0;border-top:1px solid var(--line);font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--muted)}
+  @media (max-width:720px){.grid{grid-template-columns:1fr}}
+  :focus-visible{outline:2px solid var(--red);outline-offset:2px;border-radius:4px}
+</style>
+
+<header>
+  <div class="wrap head-in">
+    <div class="logo"><span class="mark">VE</span><span class="lt">VE Logistics</span></div>
+    <div class="toggle" role="group" aria-label="Language">
+      <button id="th-btn" aria-pressed="true" onclick="setLang('th')">ไทย</button>
+      <button id="en-btn" aria-pressed="false" onclick="setLang('en')">EN</button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <div class="intro">
+      <p class="eyebrow"><span class="en">Website design review</span><span class="th">พิจารณาแบบเว็บไซต์</span></p>
+      <h1><span class="en">Two design directions to choose from</span><span class="th">สองแนวดีไซน์ให้เลือก</span></h1>
+      <p><span class="en">Same content and message &mdash; two visual treatments. Open each, compare, and tell us which direction to take forward.</span><span class="th">เนื้อหาและสารเหมือนกัน &mdash; ต่างกันที่แนวดีไซน์ ลองเปิดดูทั้งสองแบบ เทียบกัน แล้วบอกได้เลยว่าจะเดินหน้าแบบไหน</span></p>
+    </div>
+
+    <div class="grid">
+      <div class="opt">
+        <div class="thumb t-clean">
+          <span class="lab">Option A</span>
+          <div class="hbar"></div>
+          <div class="h1"></div><div class="h2"></div><div class="p1"></div><div class="p2"></div>
+          <div class="cardm"><i style="top:12px"></i><i style="top:26px"></i><i style="top:40px"></i><i style="top:54px"></i></div>
+        </div>
+        <div class="opt-body">
+          <h2><span class="en">Clean &amp; Corporate</span><span class="th">มินิมอล / องค์กร</span></h2>
+          <div class="tagline">IBM Plex · minimal · trust-first</div>
+          <p><span class="en">Calm, spacious, enterprise-SaaS feel. Maximum credibility and readability.</span><span class="th">เรียบ โปร่ง ให้ความรู้สึกซอฟต์แวร์องค์กร เน้นความน่าเชื่อถือและอ่านง่ายที่สุด</span></p>
+          <ul>
+            <li><span class="en">Light, restrained palette</span><span class="th">โทนสว่าง ใช้สีอย่างมีวินัย</span></li>
+            <li><span class="en">Product dashboard mock in hero</span><span class="th">ภาพจำลองแดชบอร์ดใน hero</span></li>
+            <li><span class="en">Best for cautious B2B buyers</span><span class="th">เหมาะกับลูกค้า B2B ที่ระวังตัว</span></li>
+          </ul>
+          <a class="btn" href="clean.html"><span class="en">Open Option A</span><span class="th">เปิดดู Option A</span> →</a>
+        </div>
+      </div>
+
+      <div class="opt">
+        <div class="thumb t-bold">
+          <span class="lab">Option B</span>
+          <div class="hbar"></div>
+          <div class="h1"></div><div class="h2"></div>
+          <div class="cardm"><em></em></div>
+          <div class="band"><b>150+</b><b>~18%</b><b>2,400+</b></div>
+        </div>
+        <div class="opt-body">
+          <h2><span class="en">Bold &amp; Branded</span><span class="th">บึกบึน / แบรนด์จัด</span></h2>
+          <div class="tagline">Chakra Petch · red-forward · high-energy</div>
+          <p><span class="en">Same light, trustworthy base &mdash; but punchier: bigger type, a red stats band, stronger brand presence.</span><span class="th">ฐานสว่างน่าเชื่อถือเหมือนกัน &mdash; แต่จัดจ้านกว่า ตัวอักษรใหญ่ แถบสถิติสีแดง แบรนด์เด่นชัด</span></p>
+          <ul>
+            <li><span class="en">Chakra Petch display headings</span><span class="th">หัวข้อฟอนต์ Chakra Petch</span></li>
+            <li><span class="en">Signature red accent surfaces</span><span class="th">พื้นผิวสีแดงเป็นเอกลักษณ์</span></li>
+            <li><span class="en">Best for standing out &amp; campaigns</span><span class="th">เหมาะกับการสร้างความโดดเด่น/แคมเปญ</span></li>
+          </ul>
+          <a class="btn" href="bold.html"><span class="en">Open Option B</span><span class="th">เปิดดู Option B</span> →</a>
+        </div>
+      </div>
+    </div>
+
+    <p class="note"><span class="en">Both versions are bilingual (TH/EN), responsive, and support light/dark. Figures shown are mock-ups pending Business Development verification. Files: <code>clean.html</code> · <code>bold.html</code></span><span class="th">ทั้งสองเวอร์ชันเป็นสองภาษา (ไทย/EN) รองรับมือถือ และมีทั้งโหมดสว่าง/มืด ตัวเลขที่แสดงเป็นตัวอย่างรอ BD ยืนยัน ไฟล์: <code>clean.html</code> · <code>bold.html</code></span></p>
+  </div>
+</main>
+
+<footer><div class="wrap">© 2026 VE Logistics · CIG Utilities &amp; Infrastructure</div></footer>
+
+<script>
+  function setLang(l){
+    document.documentElement.setAttribute('data-lang',l);
+    document.documentElement.setAttribute('lang',l==='th'?'th':'en');
+    document.getElementById('th-btn').setAttribute('aria-pressed',l==='th');
+    document.getElementById('en-btn').setAttribute('aria-pressed',l==='en');
+    try{localStorage.setItem('ve-lang',l)}catch(e){}
+  }
+  (function(){var s='th';try{var v=localStorage.getItem('ve-lang');if(v)s=v}catch(e){}setLang(s);})();
+</script>
